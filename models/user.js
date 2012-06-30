@@ -34,7 +34,7 @@ function decrypt(str) {
 User.statics.authenticate = function(name, password, fn) {
   this.findOne({ name : name }, function(err, doc) {
     console.log(doc);
-    if (doc && doc['password'] === password) return fn(null, doc);
+    if (doc && doc.password === password) return fn(null, doc);
     fn(new Error('invalid user'));
   });
 };

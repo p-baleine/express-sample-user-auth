@@ -9,7 +9,8 @@ var express = require('express')
   , Resource = require('express-resource')
   , db = require('./db');
 
-var app = module.exports = express.createServer();
+var app = module.exports = express.createServer()
+  , User = null;
 
 // Configuration
 
@@ -36,16 +37,17 @@ app.configure(function(){
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
   app.dynamicHelpers({ messages: require('express-messages') });
-  db(app.set('mongoconn')).init();
+  db(app.set('mongoconn')).init(function() {
+    User = require('./models/user').model();
+  });
 });
 
 function requireLogin(req, res, next) {
   if (!req.url.match(/login/) && !req.user) {
     req.flash("info", "please login");
     res.redirect('/login');
-  } else {
-    next();
   }
+  next();
 }
 
 function loadUser(req, res, next) {
