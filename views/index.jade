@@ -1,0 +1,13 @@
+h1= title
+
+!= messages()
+
+form(method='POST', action='/login')
+  p
+    label(for='name') name
+    input(type='text', name='name')
+  p
+    label(for='password') password
+    input(type='password', name='password')
+  p
+    input(type='submit', value='login')
