@@ -14,3 +14,7 @@ This app using following packages:
         , "session-mongoose" : "*"
       }
     }
+
+TODO
+ * encryption
+ * unit test
