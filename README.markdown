@@ -1,5 +1,6 @@
 The example of user authentication on express.
 This app using following packages: 
+
     {
         "name": "application-name"
       , "version": "0.0.1"
