@@ -51,8 +51,6 @@ function requireLogin(req, res, next) {
 }
 
 function loadUser(req, res, next) {
-  var User = require('./models/user').model();
-
   if (req.session.user) {
     User.findOne({ id : req.session.user.id }, function(err, doc) {
       req.user = doc;
