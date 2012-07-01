@@ -10,4 +10,8 @@
     , "mongoose": "*"
     , "session-mongoose" : "*"
   }
+  , "devDependencies": {
+      "mocha": "*"
+    , "should": "*"
+  }
 }
