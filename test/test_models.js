@@ -13,7 +13,7 @@ describe('User', function(){
     describe('#save() with name and password', function() {
       var subject;
 
-      before(function(done) {
+      beforeEach(function(done) {
         subject = new User;
         subject.name = 'Cocteau';
         subject.password = '390';
