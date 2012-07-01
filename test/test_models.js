@@ -1,11 +1,72 @@
 var should = require('should')
-  , User = 
+  , db = require('../db')
+  , User = require('../models/user').model();
 
-describe('Array', function(){
-  describe('#indexOf()', function(){
-    it('should return -1 when the value is not present', function(){
-      [1,2,3].indexOf(5).should.equal(-1);
-      [1,2,3].indexOf(0).should.equal(-1);
+describe('User', function(){
+  before(function(done) {
+    db('mongodb://localhost/nameko-blog-test').init(function() {
+      done();
+    });
+  });
+
+  describe('instantiation', function(){
+    describe('#save() with name and password', function() {
+      var subject;
+
+      before(function(done) {
+        subject = new User;
+        subject.name = 'Cocteau';
+        subject.password = '390';
+        done();
+      });
+      it('should be saved without error', function(done) {
+        subject.save(function(err) {
+          if (err) throw err;
+          done();
+        });
+      });
+      it('should be saved with name', function() {
+        subject.save(function() {
+          subject.name = 'Cocteau';
+        });
+      });
+      it('should be saved with password', function() {
+        subject.save(function() {
+          subject.password = '390';
+        });
+      });
+    });
+
+    describe('#save() without name', function() {
+      var subject;
+
+      before(function(done) {
+        subject = new User;
+        subject.password = '390';
+        done();
+      });
+      it('should not be saved', function(done) {
+        subject.save(function(err) {
+          err.name.should.equal('ValidationError');
+          done();
+        });
+      });
+    });
+
+    describe('#save() without password', function() {
+      var subject;
+
+      before(function(done) {
+        subject = new User;
+        subject.name = 'Cocteau';
+        done();
+      });
+      it('should not be saved', function(done) {
+        subject.save(function(err) {
+          err.name.should.equal('ValidationError');
+          done();
+        });
+      });
     });
   });
 });
