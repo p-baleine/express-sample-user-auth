@@ -47,7 +47,9 @@ function requireLogin(req, res, next) {
     req.flash("info", "please login");
     res.redirect('/login');
   }
-  next();
+  else {
+    next();
+  }
 }
 
 function loadUser(req, res, next) {
