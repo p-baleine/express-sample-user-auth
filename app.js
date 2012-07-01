@@ -46,7 +46,9 @@ function requireLogin(req, res, next) {
     res.redirect('/login');
     return;
   }
-  next();
+  else {
+    next();
+  }
 }
 
 function loadUser(req, res, next) {
