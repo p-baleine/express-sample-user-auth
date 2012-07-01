@@ -10,7 +10,7 @@ var express = require('express')
   , db = require('./db');
 
 var app = module.exports = express.createServer()
-  , User = null;
+  , User = require('./models/user').model();
 
 // Configuration
 
@@ -37,9 +37,7 @@ app.configure(function(){
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
   app.dynamicHelpers({ messages: require('express-messages') });
-  db(app.set('mongoconn')).init(function() {
-    User = require('./models/user').model();
-  });
+  db(app.set('mongoconn')).init();
 });
 
 function requireLogin(req, res, next) {
