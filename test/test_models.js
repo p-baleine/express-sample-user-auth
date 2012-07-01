@@ -27,12 +27,12 @@ describe('User', function(){
       });
       it('should be saved with name', function() {
         subject.save(function() {
-          subject.name = 'Cocteau';
+          subject.name.should.be.equal('Cocteau');
         });
       });
       it('should be saved with password', function() {
         subject.save(function() {
-          subject.password = '390';
+          subject.password.should.be.equal('390');
         });
       });
     });
