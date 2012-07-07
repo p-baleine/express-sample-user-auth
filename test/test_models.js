@@ -2,10 +2,12 @@ var should = require('should')
   , db = require('../db')
   , User = require('../models/user').model();
 
-describe('User', function(){
+describe('User', function() {
   before(function(done) {
     db('mongodb://localhost/nameko-blog-test').init(function() {
-      done();
+      User.collection.drop(function() {
+        done();
+      });
     });
   });
 
@@ -14,14 +16,12 @@ describe('User', function(){
       var subject;
 
       beforeEach(function(done) {
-        subject = new User;
-        subject.name = 'Cocteau';
-        subject.password = '390';
+        subject = new User({ name: 'Cocteau', password: '390' });
         done();
       });
       it('should be saved without error', function(done) {
         subject.save(function(err) {
-          if (err) throw err;
+          if (err) done(err);
           done();
         });
       });
@@ -41,8 +41,7 @@ describe('User', function(){
       var subject;
 
       before(function(done) {
-        subject = new User;
-        subject.password = '390';
+        subject = new User({ password: '390' });
         done();
       });
       it('should not be saved', function(done) {
@@ -57,8 +56,7 @@ describe('User', function(){
       var subject;
 
       before(function(done) {
-        subject = new User;
-        subject.name = 'Cocteau';
+        subject = new User({ name : 'Cocteau' });
         done();
       });
       it('should not be saved', function(done) {
@@ -68,5 +66,9 @@ describe('User', function(){
         });
       });
     });
+  });
+
+  describe('authentication', function(){
+    it('should authenticate corrctly');
   });
 });

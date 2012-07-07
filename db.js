@@ -3,11 +3,11 @@
  */
 
 var mongoose = require('mongoose')
-  , util = require('./util');
+  , myutil = require('./myutil');
 
 module.exports = function(connstr) {
   return {
-    init : util.singleton(function(fn) {
+    init : myutil.singleton(function(fn) {
       console.log('connecting to mongo via ' + connstr);
       mongoose.connect(connstr);
       return !fn || fn(mongoose.connection);
